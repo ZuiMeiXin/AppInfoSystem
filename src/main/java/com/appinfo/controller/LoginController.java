@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 页面登录控制
  *
@@ -45,9 +47,11 @@ public class LoginController {
     @RequestMapping("/backendlogin.html")
     public String getBackendUser(@RequestParam("userCode") String userCode,
                                  @RequestParam("userPassword") String userPassword,
-                                 Model model) {
+                                 Model model,
+                                 HttpSession session) {
         BackendUser backendUser = userService.getBackendUser(userCode, userPassword);
         if (backendUser != null) {
+            session.setAttribute("user", backendUser);
             return "";
 
         }
@@ -61,15 +65,25 @@ public class LoginController {
     @RequestMapping("/devlogin.html")
     public String getDevUser(@RequestParam("devCode") String devCode,
                              @RequestParam("devPassword") String devPassword,
-                             Model model) {
+                             Model model,
+                             HttpSession session) {
         DevUser devUser = userService.getDevUser(devCode, devPassword);
         if (devUser != null) {
             /*登陆成功 跳转到管理页面*/
-            model.addAttribute("devUser", devUser);
-            return "apptable";
+            session.setAttribute("User", devUser);
+            return "appindex";
         }
         model.addAttribute("error", "用户名或密码错误");
         return "redirect:/login/toapplogin.html";
+    }
+
+    /**
+     * 退出登录
+     */
+    @RequestMapping("/loginout.html")
+    public String toLoginOut(HttpSession session) {
+        session.removeAttribute("user");
+        return "login";
     }
 
 

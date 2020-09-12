@@ -7,6 +7,7 @@ import java.util.Date;
 
 /**
  * App的信息
+ *
  * @author HiSoft
  */
 @Data
@@ -35,4 +36,8 @@ public class AppInfo {
     private String logoPicPath;
     private String logoLocPath;
     private int versionId;
+
+    private String versionNo;
+    private String statusName;
+
 }

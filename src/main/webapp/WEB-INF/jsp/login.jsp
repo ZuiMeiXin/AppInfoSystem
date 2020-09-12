@@ -39,10 +39,10 @@
                 <h1>APP信息管理平台</h1>
             </div>
             <div>
-                <a class="btn btn-default " href="${pageContext.request.contextPath }/login/backendlogin.html">后台管理系统 入口</a>
+                <a class="btn btn-default " href="${pageContext.request.contextPath }/login/tobackendlogin.html">后台管理系统 入口</a>
             </div>
             <div>
-                <a class="btn btn-default " href="${pageContext.request.contextPath }/login/applogin.html">开发者平台 入口</a>
+                <a class="btn btn-default " href="${pageContext.request.contextPath }/login/toapplogin.html">开发者平台 入口</a>
             </div>
         </div>
     </div>

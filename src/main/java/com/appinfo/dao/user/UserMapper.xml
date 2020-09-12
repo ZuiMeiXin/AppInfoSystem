@@ -6,4 +6,17 @@
 <mapper namespace="com.appinfo.dao.user.UserMapper">
 
 
+    <select id="getBackendUser" resultType="com.appinfo.pojo.BackendUser">
+        select *
+        from backend_user
+        where userCode = #{userCode}
+          and userPassword = #{userPassword}
+    </select>
+    <select id="getDevUser" resultType="com.appinfo.pojo.DevUser">
+        select *
+        from dev_user
+        where devCode = #{devCode}
+          and devPassword = #{devPassword}
+    </select>
+
 </mapper>

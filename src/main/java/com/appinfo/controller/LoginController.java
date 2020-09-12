@@ -65,6 +65,7 @@ public class LoginController {
         DevUser devUser = userService.getDevUser(devCode, devPassword);
         if (devUser != null) {
             /*登陆成功 跳转到管理页面*/
+            model.addAttribute("devUser", devUser);
             return "apptable";
         }
         model.addAttribute("error", "用户名或密码错误");

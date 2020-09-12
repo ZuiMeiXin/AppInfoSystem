@@ -13,25 +13,16 @@
     <!--添加注解扫描-->
     <context:component-scan base-package="com.appinfo.controller"/>
 
+    <!--@RequestMapping注解扫描处理器-->
+    <mvc:annotation-driven/>
+
+
     <!--静态资源过滤一-->
+    <mvc:resources location="/vendor/" mapping="/vendor/**"/>
     <mvc:default-servlet-handler/>
     <!--视图解析器-->
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="mediaTypes">
-            <map>
-                <entry key="html" value="text/html;charset=utf-8"/>
-                <entry key="json" value="application/json;charset=utf-8"/>
-                <entry key="xml" value="application/xml;charset=utf-8"/>
-            </map>
-        </property>
-        <!--视图解析器-->
-        <property name="viewResolvers">
-            <list>
-                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-                    <property name="prefix" value="/WEB-INF/jsp/"/>
-                    <property name="suffix" value=".jsp"/>
-                </bean>
-            </list>
-        </property>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 </beans>

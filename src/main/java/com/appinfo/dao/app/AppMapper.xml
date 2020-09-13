@@ -18,6 +18,34 @@
                     #{creationDate}, #{logoPicPath}, #{logoLocPath}
                     #{versionId})
     </insert>
+    <update id="updateApp">
+        update app_info
+        set softwareName      = #{softwareName},
+            APKName           = #{APKName},
+            supportROM        = #{supportROM},
+            interfaceLanguage = #{interfaceLanguage},
+            softwareSize      = #{softwareSize},
+            updateDate        = #{updateDate},
+            devId             = #{devId},
+            appInfo           = #{appInfo},
+            status            = #{status},
+            onSaleDate        = #{onSaleDate},
+            offSaleDate       = #{offSaleDate},
+            flatformId        = #{flatformId},
+            categoryLevel3    = #{categoryLevel3},
+            downloads         = #{downloads},
+            modifyBy          = #{modifyBy},
+            modifyDate        = #{modifuDate},
+            logoPicPath       = #{logoPicPath},
+            logoLocPath       = #{logoLocPath},
+            versionId         = #{versionId}
+        where id = #{id}
+    </update>
+    <delete id="deleteApp">
+        delete
+        from app_info
+        where id = #{id}
+    </delete>
 
     <select id="getAppList" resultType="AppInfo">
         select i2.*, d.valueName statusName

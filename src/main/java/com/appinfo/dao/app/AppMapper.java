@@ -11,4 +11,11 @@ public interface AppMapper {
 
     /*添加一个新的app基础信息*/
     int addApp(AppInfo appInfo);
+
+    /*修改App的基础信息*/
+    int updateApp(AppInfo appInfo)
+
+    /*删除App的基础信息*/
+    int deleteApp(Integer id);
+
 }

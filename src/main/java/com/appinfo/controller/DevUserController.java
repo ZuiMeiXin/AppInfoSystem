@@ -24,4 +24,20 @@ public class DevUserController {
         model.addAttribute("applist", appList);
         return "applist";
     }
+
+    @RequestMapping("/toaddapp.html")
+    public String toAddApp() {
+        return "appadd";
+    }
+
+    @RequestMapping("/addappsave.html")
+    public String addAppSave(AppInfo appInfo, Model model) {
+        if (appService.addAppInfo(appInfo)) {
+            return "redirect:/dev/toapplist.html";
+        }
+        model.addAttribute("error", "添加失败");
+        return "redirect:/dev/toaddapp.htmol";
+    }
+
+
 }

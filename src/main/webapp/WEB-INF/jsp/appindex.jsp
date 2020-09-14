@@ -52,7 +52,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>${devUser.devName}</h2>
+                        <h2>${User.devName}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -62,7 +62,7 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>${devUser.devName}</h3>
+                        <h3>${User.devName}</h3>
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-home"></i> App账户管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -138,7 +138,7 @@
                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -150,7 +150,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -162,7 +162,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -174,7 +174,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -205,7 +205,7 @@
             <!-- top tiles -->
             <div class="row tile_count">
                 <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                    <p><span class="count_top">欢迎你：${devUser.devName}</span>| <span>角色：开发者账户</span></p>
+                    <p><span class="count_top">欢迎你：${User.devName}</span>| <span>角色：开发者账户</span></p>
                 </div>
             </div>
 

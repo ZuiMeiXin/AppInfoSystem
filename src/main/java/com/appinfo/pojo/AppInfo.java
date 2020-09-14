@@ -39,5 +39,9 @@ public class AppInfo {
 
     private String versionNo;
     private String statusName;
+    private String flatformName;
+    private String categoryName1;
+    private String categoryName2;
+    private String categoryName3;
 
 }

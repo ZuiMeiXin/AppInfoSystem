@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -21,6 +22,12 @@ public class AppServiceImpl implements AppService {
     public List<AppInfo> getAppList() {
         List<AppInfo> appList = appMapper.getAppList();
         return appList;
+    }
+
+    @Override
+    public AppInfo getAppInfo(Integer id) {
+        AppInfo appInfo = appMapper.getAppInfo(id);
+        return appInfo;
     }
 
     @Override
@@ -48,5 +55,17 @@ public class AppServiceImpl implements AppService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<AppInfo> queryApplist(Map map) {
+        List<AppInfo> appInfos = appMapper.queryApplist(map);
+        return appInfos;
+    }
+
+    @Override
+    public String getFlatFormName(Integer flatformId) {
+        String flatFormAppList = appMapper.getFlatFormAppList(flatformId);
+        return flatFormAppList;
     }
 }

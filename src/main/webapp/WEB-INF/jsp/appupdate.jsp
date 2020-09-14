@@ -240,7 +240,7 @@
                             <div class="x_content">
 
                                 <form class="form-horizontal form-label-left" method="post"
-                                      action="${pageContext.request.contextPath}/dev/addappsave.html" novalidate>
+                                      action="${pageContext.request.contextPath}/dev/appupdatesave.html" novalidate>
 
                                     <p>For alternative validation library <code>parsleyJS</code> check out in the <a
                                             href="form.html">form page</a>
@@ -442,15 +442,29 @@
 
     /*ajax实现分类的选择显示*/
     $(function () {
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/getCategory",
-            type:"post",
-            dataType:"json",
-            success:function (data) {
-            $("#categoryLevel1").html();
-            }
-        })
-    })
+            $.ajax({
+                url: "${pageContext.request.contextPath}/dev/getAppInfo",
+                data:"id = ${id}",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    $("#softwareName").html(data.softwareName);
+                    $("#APKName").html(data.APKName);
+                    $("#ROM").html(data.ROM);
+                    $("#language").html(data.language);
+                    $("#softwareSize").html(data.softwareSize);
+                    $("#downloads").html(data.downloads);
+                    $("#flatformId").html(data.flatformId);
+                    $("#categoryLevel1").html(data.categoryLevel1);
+                    $("#categoryLevel2").html(data.categoryLevel2);
+                    $("#categoryLevel3").html(data.categoryLevel3);
+                    $("#status").html(data.status);
+                    $("#appinfo").html(data.appinfo);
+                    $("#logoPicPath").html(data.logoPicPath);
+                }
+            })
+        }
+    )
 
 
 </script>

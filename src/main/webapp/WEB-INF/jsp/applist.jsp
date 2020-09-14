@@ -60,7 +60,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>${devUser.devName}</h2>
+                        <h2>${User.devName}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -120,7 +120,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
 
-                        <li><a href="${pageContext.request.contextPath}/login/loginout.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        <li><a href="${pageContext.request.contextPath}/login/loginout.html"><i
+                                class="fa fa-sign-out pull-right"></i> Log Out</a></li>
 
                         </li>
 
@@ -133,7 +134,8 @@
                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                 <li>
                                     <a>
-                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -197,10 +199,12 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="">
+            <div class="row">
                 <div class="page-title">
-                    <div class="title_left">
-                        <h3>Users <small>Some examples to get you started</small></h3>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="softwareName">软件名称</label>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <input id="softwareName" class="form-control col-md-7 col-xs-12" data-validate-words="2"
+                               name="softwareName" placeholder="软件名称" required="required" type="text"/>
                     </div>
 
                     <div class="title_right">
@@ -208,7 +212,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search for...">
                                 <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
+                      <button class="btn btn-default" type="button">查询</button>
                     </span>
                             </div>
                         </div>
@@ -222,19 +226,9 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>新增App基础信息 <small>Users</small></h2>
+                                <a class="btn btn-info " href="${pageContext.request.contextPath}/dev/toaddapp.html">新增App基础信息</a>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Settings 1</a>
-                                            </li>
-                                            <li><a href="#">Settings 2</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                                     </li>
@@ -242,11 +236,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <p class="text-muted font-13 m-b-30">
-                                    DataTables has most features enabled by default, so all you need to do to use it
-                                    with your own tables is to call the construction function:
-                                    <code>$().DataTable();</code>
-                                </p>
+                                <p class="text-muted font-13 m-b-30"/>
                                 <table id="datatable" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
@@ -269,12 +259,29 @@
                                             <td>${app.softwareName}</td>
                                             <td>${app.APKName}</td>
                                             <td>${app.softwareSize}</td>
-                                            <td>${app.flatformId}</td>
-                                            <td>${app.categoryLevel3}</td>
+                                            <td>${app.flatformName}</td>
+                                            <td>${app.categoryName1}-->${app.categoryName2}-->${app.categoryName3}</td>
                                             <td>${app.statusName}</td>
                                             <td>${app.downloads}</td>
                                             <td>${app.versionNo}</td>
-                                            <td>点击操作</td>
+                                            <c:if test="${app.status==4 || app.status==5}">
+                                                <td>dianjicaozuo
+                                                    <ul class="nav child_menu">
+                                                        <li><a href="#">修改App基础信息</a></li>
+                                                        <li><a href="#">上架</a></li>
+                                                        <li><a href="#">删除</a></li>
+                                                        <li><a href="#">新增版本信息</a></li>
+                                                    </ul>
+                                                </td>
+                                            </c:if>
+                                            <td>点击操作
+                                                <ul class="nav child_menu">
+                                                    <li><a href="#">修改</a></li>
+                                                    <li><a href="#">删除</a></li>
+                                                    <li><a href="#">下架</a></li>
+                                                    <li><a href="#">新增版本信息</a></li>
+                                                </ul>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -408,6 +415,8 @@
 
         TableManageButtons.init();
     });
+
+
 </script>
 <!-- /Datatables -->
 </body>

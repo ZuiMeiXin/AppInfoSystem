@@ -18,6 +18,7 @@
                     #{creationDate}, #{logoPicPath}, #{logoLocPath}
                     #{versionId})
     </insert>
+
     <update id="updateApp">
         update app_info
         set softwareName      = #{softwareName},
@@ -41,6 +42,20 @@
             versionId         = #{versionId}
         where id = #{id}
     </update>
+
+    <update id="updateAppStatus">
+        update app_info
+        <set>
+            <if test="status ==5">
+                status = 4
+            </if>
+            <if test="status == 4">
+                status = 5
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <delete id="deleteApp">
         delete
         from app_info
@@ -48,15 +63,88 @@
     </delete>
 
     <select id="getAppList" resultType="AppInfo">
-        select i2.*, d.valueName statusName
-        from (SELECT i.*,
-                     v.versionNo
-              FROM `app_info` i
-                       LEFT JOIN app_version v on
-                  i.versionid = v.id) i2
-                 left join data_dictionary d
-                           on d.typeCode = 'APP_STATUS' and d.valueId = i2.status
+        select *
+        from app_info
+    </select>
 
+    <select id="queryApplist" resultType="com.appinfo.pojo.AppInfo">
+        select *
+        from (SELECT
+        c1c.categoryName categoryName1,
+        c1.*
+        FROM
+        (
+        SELECT
+        c2c.categoryName categoryName2,
+        c2.*
+        FROM
+        (
+        SELECT
+        c3c.categoryName categoryName3,
+        c3.*
+        FROM
+        (
+        SELECT
+        d2.valueName flatformName,
+        v2.*
+        FROM
+        (
+        SELECT
+        d.valueName statusName,
+        v1.*
+        FROM
+        ( SELECT v.versionNo, i.* FROM app_info i LEFT JOIN app_version v ON i.versionId = v.id ) v1
+        LEFT JOIN data_dictionary d ON v1.STATUS = d.valueId
+        AND d.typeCode = 'APP_STATUS'
+        ) v2
+        LEFT JOIN data_dictionary d2 ON v2.flatformId = d2.valueId
+        AND d2.typeCode = 'APP_FLATFORM'
+        ) c3
+        LEFT JOIN app_category c3c ON c3.categoryLevel3 = c3c.id
+        ) c2
+        LEFT JOIN app_category c2c ON c2.categoryLevel2 = c2c.id
+        ) c1
+        LEFT JOIN app_category c1c ON c1.categoryLevel1 = c1c.id) i3
+        <where>
+            1=1
+            <if test="appName != null and appName!=''">
+                and softwareName like concat('%',#{appName},'%')
+            </if>
+            <if test="status >0">
+                and status = #{status}
+            </if>
+            <if test="flatformId >0">
+                and flatformId = #{flatformId}
+            </if>
+            <if test="categoryLevel1 >0 ">
+                and categoryLevel1 = #{categoryLevel1}
+                <if test="categoryLevel2 >0">
+                    and categoryLevel2 = #{categoryLevel2}
+                    <if test="categoryLevel3 >0">
+                        and categoryLevel3 = #{categoryLevel3}
+                    </if>
+                </if>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getFlatFormAppList" parameterType="string" resultType="string">
+        select valueName flatFormName
+        from data_dictionary
+        where typeCode = 'APP_FLATFORM'
+          and valueId = #{flatformId}
+    </select>
+
+    <select id="getAppCategoryLevelName" parameterType="string" resultType="string">
+        SELECT categoryName
+        FROM app_category
+        WHERE id = #{categoryLevel}
+
+    </select>
+
+    <select id="getAppInfo" resultType="com.appinfo.pojo.AppInfo">
+        select * from app_info where id = #{id}
     </select>
 
 

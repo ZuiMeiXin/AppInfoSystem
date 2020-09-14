@@ -7,16 +7,16 @@
                              softwareSize, updateDate, devId,
                              appInfo, status, onSaleDate,
                              offSaleDate, flatformId,
-                             categoryLevel3, downloads, createdBy,
+                             categoryLevel3, categoryLevel2, categoryLevel1, downloads, createdBy,
                              creationDate, logoPicPath,
-                             logoLocPath, versionId)
-        values (#{softwareName}, #{APKName}, #{supportROM}
-            #{interfaceLanguage}, #{softwareSize}, #{updateDate}
-                    #{devId}, #{appInfo}, #{status}
-                    #{onSaleDate}, #{offSaleDate}, #{flatformId}
-                    #{categoryLevel3}, #{downloads}, #{createdBy}
-                    #{creationDate}, #{logoPicPath}, #{logoLocPath}
-                    #{versionId})
+                             versionId)
+        values (#{softwareName}, #{APKName}, #{supportROM},
+                #{interfaceLanguage}, #{softwareSize}, #{updateDate},
+                #{devId}, #{appInfo}, #{status},
+                #{onSaleDate}, #{offSaleDate}, #{flatformId},
+                #{categoryLevel3}, #{categoryLevel2}, #{categoryLevel1},
+                #{downloads}, #{createdBy},
+                #{creationDate}, #{logoPicPath}, #{versionId})
     </insert>
 
     <update id="updateApp">
@@ -144,7 +144,29 @@
     </select>
 
     <select id="getAppInfo" resultType="com.appinfo.pojo.AppInfo">
-        select * from app_info where id = #{id}
+        select *
+        from app_info
+        where id = #{id}
+    </select>
+    <select id="getCategoryLevel1" resultType="com.appinfo.pojo.AppCategory">
+        select *
+        from app_category
+        where parentId is null
+    </select>
+    <select id="getCategoryLevelByParentId" resultType="com.appinfo.pojo.AppCategory">
+        select *
+        from app_category
+        where parentId = #{id}
+    </select>
+    <select id="getFlatForm" resultType="com.appinfo.pojo.DataDictionary">
+        select *
+        from data_dictionary
+        where typeCode = 'APP_FLATFORM'
+    </select>
+    <select id="getStatus" resultType="com.appinfo.pojo.DataDictionary">
+        select *
+        from data_dictionary
+        where typeCode = 'APP_STATUS'
     </select>
 
 

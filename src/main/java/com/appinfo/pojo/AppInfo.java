@@ -19,7 +19,7 @@ public class AppInfo {
     private String interfaceLanguage;
     private BigDecimal softwareSize;
     private Date updateDate;
-    private int delId;
+    private int devId;
     private String appInfo;
     private int status;
     private Date onSaleDate;

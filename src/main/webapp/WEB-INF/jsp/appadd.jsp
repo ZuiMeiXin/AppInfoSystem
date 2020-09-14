@@ -106,7 +106,7 @@
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
+                                <img src="statics/images/img.jpg" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -131,7 +131,8 @@
                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -143,7 +144,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -155,7 +157,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -167,7 +170,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -198,62 +202,25 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Form Validation</h3>
-                    </div>
-
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                              <button class="btn btn-default" type="button">Go!</button>
-                          </span>
-                            </div>
-                        </div>
+                        <h3>App 基础信息添加</h3>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
-                            <div class="x_title">
-                                <h2>Form validation <small>sub title</small></h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Settings 1</a>
-                                            </li>
-                                            <li><a href="#">Settings 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
                             <div class="x_content">
 
                                 <form class="form-horizontal form-label-left" method="post"
                                       action="${pageContext.request.contextPath}/dev/addappsave.html" novalidate>
-
-                                    <p>For alternative validation library <code>parsleyJS</code> check out in the <a
-                                            href="form.html">form page</a>
-                                    </p>
-                                    <span class="section">App Info</span>
-
+                                    <input type="hidden" name="createdBy" value="${User.id}"/>
+                                    <input type="hidden" name="devId" value="${User.id}"/>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="softwareName" class="form-control col-md-7 col-xs-12"
-                                                   data-validate-length-range="6" data-validate-words="2"
                                                    name="softwareName" placeholder="软件名称" required="required"
                                                    type="text">
                                         </div>
@@ -272,7 +239,7 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="ROM" name="ROM" required="required"
+                                            <input id="ROM" name="supportROM" required="required"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -282,7 +249,6 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="language" name="interfaceLanguage" required="required"
-                                                   data-validate-minmax="10,100"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -301,14 +267,13 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="downloads" type="text" name="downloads"
-                                                   data-validate-length-range="5,20"
                                                    class="optional form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label for="flatformId" class="control-label col-md-3">所属平台</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select type="" id="flatformId" name="flatformId" data-validate-length="6,8"
+                                            <select type="" id="flatformId" name="flatformId"
                                                     class="form-control col-md-7 col-xs-12"
                                                     required="required"></select>
                                         </div>
@@ -316,7 +281,7 @@
                                     <div class="item form-group">
                                         <label for="categoryLevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="categoryLevel1" name="password2" data-validate-linked="password"
+                                            <select id="categoryLevel1" name="categoryLevel1"
                                                     class="form-control col-md-7 col-xs-12"
                                                     required="required"></select>
                                         </div>
@@ -327,12 +292,12 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select type="tel" id="categoryLevel2" name="categoryLevel2"
-                                                    required="required" data-validate-length-range="8,20"
+                                                    required="required"
                                                     class="form-control col-md-7 col-xs-12"></select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">三级分类
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel3">三级分类
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -345,8 +310,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="status" required="required" name="status"
-                                                    class="form-control col-md-7 col-xs-12"></select>
+                                            <input id="status" required="required" name="status"
+                                                   class="form-control col-md-7 col-xs-12" value="1">待审核</input>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -444,12 +409,62 @@
     $(function () {
         $.ajax({
             url: "${pageContext.request.contextPath}/dev/getCategory",
-            type:"post",
-            dataType:"json",
-            success:function (data) {
-            $("#categoryLevel1").html();
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                var categoryLevel1optionsoptions = "<option value=\"0\" >请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    categoryLevel1optionsoptions += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel1").html(categoryLevel1optionsoptions);
+            }
+        });
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getFlatForm",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
+                }
+                $("#flatformId").html(options);
             }
         })
+
+    })
+
+
+    $("#categoryLevel1").blur(function () {
+        let lid = $("#categoryLevel1").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel2").html(options);
+            }
+        });
+    })
+    $("#categoryLevel2").blur(function () {
+        let lid = $("#categoryLevel2").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel3").html(options);
+            }
+        });
     })
 
 

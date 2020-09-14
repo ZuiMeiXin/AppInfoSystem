@@ -147,7 +147,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -159,7 +160,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -171,7 +173,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -200,23 +203,70 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="row">
-                <div class="page-title">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3" for="softwareName">软件名称</label>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <input id="softwareName" class="form-control col-md-7 col-xs-12" data-validate-words="2"
-                               name="softwareName" placeholder="软件名称" required="required" type="text"/>
-                    </div>
-
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">查询</button>
-                    </span>
+                <div class="x_content">
+                    <br>
+                    <form id="demo-form2" method="post" class="form-horizontal form-label-left"
+                          action="${pageContext.request.contextPath}/dev/toapplist.html">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称：<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="softwareName" name="softwareName"
+                                       class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                    </div>
+                        <div class="item form-group">
+                            <label for="status" class="control-label col-md-3">App状态</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select type="" id="status" name="status"
+                                        class="form-control col-md-7 col-xs-12"
+                                ></select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="flatformId" class="control-label col-md-3">所属平台</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select type="" id="flatformId" name="flatformId"
+                                        class="form-control col-md-7 col-xs-12"
+                                ></select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label for="categoryLevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="categoryLevel1" name="categoryLevel1"
+                                        class="form-control col-md-7 col-xs-12"
+                                ></select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel2">二级分类
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select type="tel" id="categoryLevel2" name="categoryLevel2"
+                                        class="form-control col-md-7 col-xs-12"></select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel3">三级分类
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="categoryLevel3" name="categoryLevel3"
+                                        class="form-control col-md-7 col-xs-12"></select>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-primary">查询</button>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
 
                 <div class="clearfix"></div>
@@ -415,6 +465,83 @@
 
         TableManageButtons.init();
     });
+
+    /*ajax实现分类的选择显示*/
+    $(function () {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategory",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                var categoryLevel1optionsoptions = "<option value=\"0\" >请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    categoryLevel1optionsoptions += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel1").html(categoryLevel1optionsoptions);
+            }
+        });
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getStatus",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
+                }
+                $("#status").html(options);
+            }
+        });
+
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getFlatForm",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
+                }
+                $("#flatformId").html(options);
+            }
+        });
+
+
+    })
+
+
+    $("#categoryLevel1").blur(function () {
+        let lid = $("#categoryLevel1").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel2").html(options);
+            }
+        });
+    })
+    $("#categoryLevel2").blur(function () {
+        let lid = $("#categoryLevel2").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel3").html(options);
+            }
+        });
+    })
 
 
 </script>

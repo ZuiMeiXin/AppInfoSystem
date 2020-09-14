@@ -1,7 +1,9 @@
 package com.appinfo.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.appinfo.pojo.AppCategory;
 import com.appinfo.pojo.AppInfo;
+import com.appinfo.pojo.DataDictionary;
 import com.appinfo.service.app.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableMBeanExport;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.JsonViewResponseBodyAdvice;
 
 import java.io.ObjectInputStream;
 import java.util.Date;
@@ -56,8 +59,8 @@ public class DevUserController {
 
     @RequestMapping("/addappsave.html")
     public String addAppSave(AppInfo appInfo, Model model) {
-        System.out.println(appInfo);
         appInfo.setCreationDate(new Date());
+
         if (appService.addAppInfo(appInfo)) {
             return "redirect:/dev/toapplist.html";
         }
@@ -72,7 +75,7 @@ public class DevUserController {
     }
 
     @RequestMapping("/appupdatesave.html")
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public String upateAppSave(AppInfo appInfo, Model model) {
         appInfo.setModifyDate(new Date());
         if (appService.updateApp(appInfo)) {
@@ -87,6 +90,34 @@ public class DevUserController {
     public String getAppInfo(Integer id) {
         AppInfo appInfo = appService.getAppInfo(id);
         return JSON.toJSONString(appInfo);
+    }
+
+    @RequestMapping(value = "/getCategory", produces = "text/json;charset=utf-8")
+    @ResponseBody
+    public String getCategoryLevel1() {
+        List<AppCategory> categoryLevel1 = appService.getCategoryLevel1();
+        return JSON.toJSONString(categoryLevel1);
+    }
+
+    @RequestMapping(value = "/getCategoryLevel2", produces = "text/json;charset=utf-8")
+    @ResponseBody
+    public String getCategoryLevel2(Integer id) {
+        List<AppCategory> categoryLevelByParentId = appService.getCategoryLevelByParentId(id);
+        return JSON.toJSONString(categoryLevelByParentId);
+    }
+
+    @RequestMapping(value = "/getFlatForm", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String getFlatFrom() {
+        List<DataDictionary> flatForm = appService.getFlatForm();
+        return JSON.toJSONString(flatForm);
+    }
+
+    @RequestMapping(value = "/getStatus", produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String getStatus() {
+        List<DataDictionary> status = appService.getStatus();
+        return JSON.toJSONString(status);
     }
 
 

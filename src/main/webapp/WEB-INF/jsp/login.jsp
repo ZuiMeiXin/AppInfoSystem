@@ -29,7 +29,7 @@
     <link href="vendor/css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="vendor/css/custom.min.css" rel="stylesheet">
+    <link href="statics/css/custom.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">

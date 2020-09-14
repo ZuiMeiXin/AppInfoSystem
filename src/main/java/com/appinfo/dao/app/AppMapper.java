@@ -1,7 +1,9 @@
 package com.appinfo.dao.app;
 
 
+import com.appinfo.pojo.AppCategory;
 import com.appinfo.pojo.AppInfo;
+import com.appinfo.pojo.DataDictionary;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,8 +15,27 @@ public interface AppMapper {
     /*获取一个App所以基础信息*/
     AppInfo getAppInfo(Integer id);
 
+
+
+
     /*根据 flatformId 查询出所属平台*/
     String getFlatFormAppList(Integer flatformId);
+
+
+
+    /*获取一级分类*/
+    List<AppCategory> getCategoryLevel1();
+
+    /*根据父级Id 获取子级分类*/
+    List<AppCategory> getCategoryLevelByParentId(Integer id);
+
+    /*获取所有的 所属平台 flatformid*/
+    List<DataDictionary> getFlatForm();
+
+    /*获取所有的 状态信息 status*/
+    List<DataDictionary> getStatus();
+
+
 
     /*根据 categoryLevel 查询出所属分类*/
     String getAppCategoryLevelName(@Param("categoryLevel") Integer categoryLevel);

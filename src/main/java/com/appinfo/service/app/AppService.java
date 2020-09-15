@@ -3,6 +3,7 @@ package com.appinfo.service.app;
 
 import com.appinfo.pojo.AppCategory;
 import com.appinfo.pojo.AppInfo;
+import com.appinfo.pojo.AppVersion;
 import com.appinfo.pojo.DataDictionary;
 
 import java.util.List;
@@ -40,5 +41,18 @@ public interface AppService {
     /*条件查询App信息，软件名称，App状态，所属平台，一级分类，二级分类，三级分类*/
     public List<AppInfo> queryApplist(Map map);
 
+    /*查询所有的 所属平台名称*/
     public String getFlatFormName(Integer flatformId);
+
+    /*修改App的状态信息 上架或者下架*/
+    public Boolean changeStatus(Integer status,Integer id);
+
+    /*添加AppVersionInfo*/
+    public Boolean addVersionInfo(AppVersion appVersion);
+
+    /*通过APPId获取versionid*/
+    public int getAppVersionIdByAppId(Integer appId);
+
+    /*添加versionId*/
+    public boolean addAppInfoVersionId(Integer versionId,Integer id);
 }

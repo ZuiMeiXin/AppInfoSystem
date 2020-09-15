@@ -8,16 +8,31 @@
                              appInfo, status, onSaleDate,
                              offSaleDate, flatformId,
                              categoryLevel3, categoryLevel2, categoryLevel1, downloads, createdBy,
-                             creationDate, logoPicPath,
-                             versionId)
+                             creationDate, logoPicPath)
         values (#{softwareName}, #{APKName}, #{supportROM},
                 #{interfaceLanguage}, #{softwareSize}, #{updateDate},
                 #{devId}, #{appInfo}, #{status},
                 #{onSaleDate}, #{offSaleDate}, #{flatformId},
                 #{categoryLevel3}, #{categoryLevel2}, #{categoryLevel1},
                 #{downloads}, #{createdBy},
-                #{creationDate}, #{logoPicPath}, #{versionId})
+                #{creationDate}, #{logoPicPath})
     </insert>
+
+    <insert id="addVersionInfo">
+        insert into app_version(appId, versionNo,
+                                versionInfo, publishStatus,
+                                downloadLink, versionSize,
+                                createdBy, creationDate, apkLocPath,
+                                apkFileName)
+        values (#{appId}, #{versionNo}, #{versionInfo},
+                #{publishStatus}, #{downloadLink}, #{versionSize},
+                #{createdBy}, #{creationDate}, #{apkLocPath}, #{apkFileName})
+    </insert>
+    <update id="addAppInfoVersionId">
+        update app_info
+        set versionId = #{versionId}
+        where id = #{id}
+    </update>
 
     <update id="updateApp">
         update app_info
@@ -36,14 +51,14 @@
             categoryLevel3    = #{categoryLevel3},
             downloads         = #{downloads},
             modifyBy          = #{modifyBy},
-            modifyDate        = #{modifuDate},
+            modifyDate        = #{modifyDate},
             logoPicPath       = #{logoPicPath},
             logoLocPath       = #{logoLocPath},
             versionId         = #{versionId}
         where id = #{id}
     </update>
 
-    <update id="updateAppStatus">
+    <update id="changeStatus">
         update app_info
         <set>
             <if test="status ==5">
@@ -167,6 +182,13 @@
         select *
         from data_dictionary
         where typeCode = 'APP_STATUS'
+    </select>
+    <select id="getAppVersionIdByAppId" resultType="java.lang.Integer">
+        select id
+        from app_version
+        where appId = #{appId}
+        order by creationDate desc
+        limit 1
     </select>
 
 

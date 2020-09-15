@@ -4,6 +4,7 @@ package com.appinfo.service.app;
 import com.appinfo.dao.app.AppMapper;
 import com.appinfo.pojo.AppCategory;
 import com.appinfo.pojo.AppInfo;
+import com.appinfo.pojo.AppVersion;
 import com.appinfo.pojo.DataDictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,38 @@ public class AppServiceImpl implements AppService {
     public String getFlatFormName(Integer flatformId) {
         String flatFormAppList = appMapper.getFlatFormAppList(flatformId);
         return flatFormAppList;
+    }
+
+    @Override
+    public Boolean changeStatus(Integer status, Integer id) {
+        int i = appMapper.changeStatus(status, id);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public Boolean addVersionInfo(AppVersion appVersion) {
+        if (appMapper.addVersionInfo(appVersion) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int getAppVersionIdByAppId(Integer appId) {
+        int versionId = appMapper.getAppVersionIdByAppId(appId);
+        return versionId;
+    }
+
+
+    @Override
+    public boolean addAppInfoVersionId(Integer versionId,Integer id) {
+       if (appMapper.addAppInfoVersionId(versionId,id)>0){
+           return true;
+       }
+        return false;
     }
 }

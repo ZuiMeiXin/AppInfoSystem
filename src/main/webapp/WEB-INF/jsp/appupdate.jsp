@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -131,7 +132,8 @@
                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                 <li>
                                     <a>
-                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -143,7 +145,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -155,7 +158,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -167,7 +171,8 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="statics/images/img.jpg" alt="Profile Image"/></span>
+                                        <span class="image"><img src="statics/images/img.jpg"
+                                                                 alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -198,7 +203,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Form Validation</h3>
+                        <h3>APP开发者平台</h3>
                     </div>
 
                     <div class="title_right">
@@ -218,7 +223,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Form validation <small>sub title</small></h2>
+                                <h2>AppInfo 修改 <small>sub title</small></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -240,22 +245,21 @@
                             <div class="x_content">
 
                                 <form class="form-horizontal form-label-left" method="post"
-                                      action="${pageContext.request.contextPath}/dev/appupdatesave.html" novalidate>
-
-                                    <p>For alternative validation library <code>parsleyJS</code> check out in the <a
-                                            href="form.html">form page</a>
-                                    </p>
+                                      action="${pageContext.request.contextPath}/dev/appupdatesave.html">
                                     <span class="section">App Info</span>
 
+                                    <input type="hidden" name="creationDate" value="${AppInfo.creationDate}"/>
+                                    <input type="hidden" name="createdBy" value="${AppInfo.createdBy}"/>
+                                    <input type="hidden" name="id" value="${AppInfo.id}"/>
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="softwareName" class="form-control col-md-7 col-xs-12"
-                                                   data-validate-length-range="6" data-validate-words="2"
-                                                   name="softwareName" placeholder="软件名称" required="required"
-                                                   type="text">
+                                                   name="softwareName" value="${AppInfo.softwareName}"
+                                                   required="required"
+                                                   type="text"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -264,6 +268,7 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="APKName" name="APKName" required="required"
+                                                   value="${AppInfo.APKName}"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -272,7 +277,8 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="ROM" name="ROM" required="required"
+                                            <input id="ROM" name="supportROM" required="required"
+                                                   value="${AppInfo.supportROM}"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -282,7 +288,7 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="language" name="interfaceLanguage" required="required"
-                                                   data-validate-minmax="10,100"
+                                                   value="${AppInfo.interfaceLanguage}"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
@@ -292,7 +298,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="softwareSize" name="softwareSize" required="required"
-                                                   placeholder="软件大小" class="form-control col-md-7 col-xs-12">
+                                                   value="${AppInfo.softwareSize}"
+                                                   class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -301,14 +308,15 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input id="downloads" type="text" name="downloads"
-                                                   data-validate-length-range="5,20"
+                                                   value="${AppInfo.downloads}"
                                                    class="optional form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label for="flatformId" class="control-label col-md-3">所属平台</label>
+                                        <label for="flatformId"
+                                               class="control-label col-md-3 col-sm-3 col-xs-12">所属平台</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select type="" id="flatformId" name="flatformId" data-validate-length="6,8"
+                                            <select type="" id="flatformId" name="flatformId"
                                                     class="form-control col-md-7 col-xs-12"
                                                     required="required"></select>
                                         </div>
@@ -316,7 +324,7 @@
                                     <div class="item form-group">
                                         <label for="categoryLevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="categoryLevel1" name="password2" data-validate-linked="password"
+                                            <select id="categoryLevel1" name="categoryLevel1"
                                                     class="form-control col-md-7 col-xs-12"
                                                     required="required"></select>
                                         </div>
@@ -327,12 +335,12 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select type="tel" id="categoryLevel2" name="categoryLevel2"
-                                                    required="required" data-validate-length-range="8,20"
+                                                    required="required"
                                                     class="form-control col-md-7 col-xs-12"></select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">三级分类
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel3">三级分类
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -346,7 +354,8 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select id="status" required="required" name="status"
-                                                    class="form-control col-md-7 col-xs-12"></select>
+                                                    class="form-control col-md-7 col-xs-12">
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -354,8 +363,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea id="appinfo" required="required" name="appinfo"
-                                                      class="form-control col-md-7 col-xs-12"></textarea>
+                                            <textarea id="appinfo" required="required" name="appinfo" data-value="${AppInfo.appInfo}"
+                                                      class="form-control col-md-7 col-xs-12">${AppInfo.appInfo}</textarea>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -364,13 +373,14 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="file" id="logoPicPath" required="required" name="logoPicPath"
-                                                   class="form-control col-md-7 col-xs-12"></input>
+                                                   value="${AppInfo.logoPicPath}"
+                                                   class="form-control col-md-7 col-xs-12"/>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-3">
-                                            <button id="send" type="submit" class="btn btn-success">保存</button>
+                                            <button type="submit" class="btn btn-success">保存</button>
                                             <a class="btn btn-primary"
                                                href="${pageContext.request.contextPath}/dev/toapplist.html">返回</a>
                                         </div>
@@ -442,29 +452,78 @@
 
     /*ajax实现分类的选择显示*/
     $(function () {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/dev/getAppInfo",
-                data:"id = ${id}",
-                type: "post",
-                dataType: "json",
-                success: function (data) {
-                    $("#softwareName").html(data.softwareName);
-                    $("#APKName").html(data.APKName);
-                    $("#ROM").html(data.ROM);
-                    $("#language").html(data.language);
-                    $("#softwareSize").html(data.softwareSize);
-                    $("#downloads").html(data.downloads);
-                    $("#flatformId").html(data.flatformId);
-                    $("#categoryLevel1").html(data.categoryLevel1);
-                    $("#categoryLevel2").html(data.categoryLevel2);
-                    $("#categoryLevel3").html(data.categoryLevel3);
-                    $("#status").html(data.status);
-                    $("#appinfo").html(data.appinfo);
-                    $("#logoPicPath").html(data.logoPicPath);
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategory",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                var categoryLevel1optionsoptions = "<option value=\"0\" >请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    categoryLevel1optionsoptions += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
                 }
-            })
-        }
-    )
+                $("#categoryLevel1").html(categoryLevel1optionsoptions);
+            }
+        });
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getStatus",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
+                }
+                $("#status").html(options);
+            }
+        });
+
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getFlatForm",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
+                }
+                $("#flatformId").html(options);
+            }
+        });
+
+
+    })
+    $("#categoryLevel1").blur(function () {
+        let lid = $("#categoryLevel1").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel2").html(options);
+            }
+        });
+    })
+    $("#categoryLevel2").blur(function () {
+        let lid = $("#categoryLevel2").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                let options = "<option value=\"0\">请选择</option>";
+                for (let i = 0; i < data.length; i++) {
+                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
+                }
+                $("#categoryLevel3").html(options);
+            }
+        });
+    })
 
 
 </script>

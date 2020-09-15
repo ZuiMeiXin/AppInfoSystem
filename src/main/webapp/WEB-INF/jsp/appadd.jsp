@@ -310,8 +310,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="status" required="required" name="status"
-                                                   class="form-control col-md-7 col-xs-12" value="1">待审核</input>
+                                            <input type="hidden" name="status" value="1"/>
+                                            <p id="status" class="form-control col-md-7 col-xs-12">待审核</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">

@@ -47,6 +47,9 @@ public interface AppService {
     /*修改App的状态信息 上架或者下架*/
     public Boolean changeStatus(Integer status,Integer id);
 
+    /*修改App的状态信息 审核是否通过*/
+    public boolean changeStatusAudit(Integer status,Integer id);
+
     /*添加AppVersionInfo*/
     public Boolean addVersionInfo(AppVersion appVersion);
 
@@ -55,4 +58,13 @@ public interface AppService {
 
     /*添加versionId*/
     public boolean addAppInfoVersionId(Integer versionId,Integer id);
+
+    /*获取软件的历史版本信息*/
+    public List<AppVersion> getAppVersionList(Integer appId);
+
+    /*通过appId获取最新版本信息*/
+    public AppVersion getAppVersionByAppId(Integer appId);
+
+    /*修改最新版本信息*/
+    public boolean updateAppVersion(AppVersion appVersion);
 }

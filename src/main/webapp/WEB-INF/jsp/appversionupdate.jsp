@@ -57,13 +57,11 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>${devUser.devName}</h3>
+                        <h3>${User.devName}</h3>
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-home"></i> App账户管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
+                                    <li><a href="index3.html">Dashboard1</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-edit"></i> App应用管理 <span class="fa fa-chevron-down"></span></a>
@@ -224,7 +222,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>AppInfo 修改 <small>sub title</small></h2>
+                                <h2>历史版本列表</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -243,139 +241,90 @@
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
+                            <%--历史版本号信息--%>
+                            <div class="col-sm-12 col-md-12 col-xs-12">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>软件名称</th>
+                                        <th>版本号</th>
+                                        <th>版本大小（单位：M）</th>
+                                        <th>发布状态</th>
+                                        <th>APK文件下载</th>
+                                        <th>最新更新时间</th>
+                                    </tr>
+                                    </thead>
+                                    <c:forEach var="version" items="${versionList}">
+                                        <tr>
+                                            <td>${version.softwareName}</td>
+                                            <td>${version.versionNo}</td>
+                                            <td>${version.versionSize}</td>
+                                            <td>${version.publishStatusName}</td>
+                                            <td>${version.apkLocPath}</td>
+                                            <td><fm:formatDate value="${version.modifyDate}" pattern="yyyy-MM-DD" type="Date"/></td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+
+                            </div>
+                            <%--修改最新版本信息form表单--%>
                             <div class="x_content">
-
                                 <form class="form-horizontal form-label-left" method="post"
-                                      action="${pageContext.request.contextPath}/dev/appupdatesave.html">
-                                    <span class="section">App Info</span>
-
-                                    <input type="hidden" name="creationDate" value="${AppInfo.creationDate}"/>
-                                    <input type="hidden" name="createdBy" value="${AppInfo.createdBy}"/>
-                                    <input type="hidden" name="id" value="${AppInfo.id}"/>
+                                      action="${pageContext.request.contextPath}/dev/appversionupdatesave.html">
+                                    <span class="section">修改最新版本信息</span>
+                                    <input type="hidden" name="modifyBy" value="${User.id}"/>
+                                    <input type="hidden" name="id" value="${appVersion.id}"/>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionNo">版本号
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="softwareName" class="form-control col-md-7 col-xs-12"
-                                                   name="softwareName" value="${AppInfo.softwareName}"
+                                            <input id="versionNo" class="form-control col-md-7 col-xs-12"
+                                                   name="versionNo" value="${appVersion.versionNo}"
                                                    required="required"
                                                    type="text"/>
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="APKName">APK名称
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionSize">版本大小
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="APKName" name="APKName" required="required"
-                                                   value="${AppInfo.APKName}"
+                                            <input id="versionSize" name="versionSize" required="required"
+                                                   value="${appVersion.versionSize}"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ROM">支持ROM <span
-                                                class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="publishStatus">发布状态
+                                            <span
+                                                    class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="ROM" name="supportROM" required="required"
-                                                   value="${AppInfo.supportROM}"
+                                            <input type="hidden" name="publishStatus" value="${appVersion.publishStatus}">
+                                            <input id="publishStatus" required="required"
+                                                   value="${appVersion.publishStatusName}"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="language">界面语言
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionInfo">版本介绍
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="language" name="interfaceLanguage" required="required"
-                                                   value="${AppInfo.interfaceLanguage}"
+                                            <input type="text" id="versionInfo" name="versionInfo" required="required"
+                                                   value="${appVersion.versionInfo}"
                                                    class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareSize">软件大小
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkLocPath">apk文件
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="softwareSize" name="softwareSize" required="required"
-                                                   value="${AppInfo.softwareSize}"
-                                                   class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="downloads">下载次数
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="downloads" type="text" name="downloads"
-                                                   value="${AppInfo.downloads}"
-                                                   class="optional form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label for="flatformId"
-                                               class="control-label col-md-3 col-sm-3 col-xs-12">所属平台</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select type="" id="flatformId" name="flatformId"
-                                                    class="form-control col-md-7 col-xs-12"
-                                                    required="required"></select>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label for="categoryLevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="categoryLevel1" name="categoryLevel1"
-                                                    class="form-control col-md-7 col-xs-12"
-                                                    required="required"></select>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel2">二级分类
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select type="tel" id="categoryLevel2" name="categoryLevel2"
-                                                    required="required"
-                                                    class="form-control col-md-7 col-xs-12"></select>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel3">三级分类
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="categoryLevel3" required="required" name="categoryLevel3"
-                                                    class="form-control col-md-7 col-xs-12"></select>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">APP状态
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="status" required="required" name="status"
-                                                    class="form-control col-md-7 col-xs-12">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="appinfo">应用介绍
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea id="appinfo" required="required" name="appinfo" data-value="${AppInfo.appInfo}"
-                                                      class="form-control col-md-7 col-xs-12">${AppInfo.appInfo}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logoPicPath">LOGO图片
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" id="logoPicPath" required="required" name="logoPicPath"
-                                                   value="${AppInfo.logoPicPath}"
-                                                   class="form-control col-md-7 col-xs-12"/>
+                                            <input type="hidden" name="apkLocPath" value="${appVersion.apkLocPath}">
+                                            <p  id="apkLocPath" name="apkLocPath"
+                                               class="form-control col-md-7 col-xs-12">${appVersion.apkLocPath}</p>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

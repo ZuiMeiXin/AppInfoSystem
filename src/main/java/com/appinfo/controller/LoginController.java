@@ -51,8 +51,8 @@ public class LoginController {
                                  HttpSession session) {
         BackendUser backendUser = userService.getBackendUser(userCode, userPassword);
         if (backendUser != null) {
-            session.setAttribute("user", backendUser);
-            return "";
+            session.setAttribute("User", backendUser);
+            return "backendindex";
 
         }
         model.addAttribute("error", "用户名或密码错误");
@@ -60,7 +60,7 @@ public class LoginController {
     }
 
     /**
-     * 后台管理登录验证
+     * 前台登录管理登录验证
      */
     @RequestMapping("/devlogin.html")
     public String getDevUser(@RequestParam("devCode") String devCode,

@@ -60,7 +60,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>${User.devName}</h2>
+                        <h2>${User.userName}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -70,18 +70,18 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>${devUser.devName}</h3>
+                        <h3>${User.userName}</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> App账户管理 <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-home"></i> App管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/backend/toapplist.html">App审核</a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li><a><i class="fa fa-edit"></i> App应用管理 <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-edit"></i> 用户管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="${pageContext.request.contextPath}/dev/toapplist.html">APP维护</></li>
+                                    <li><a href="${pageContext.request.contextPath}/backend/toapplist.html">用户管理</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -205,8 +205,7 @@
             <div class="row">
                 <div class="x_content">
                     <form method="post" class="form-horizontal form-label-left"
-                          action="${pageContext.request.contextPath}/dev/toapplist.html">
-
+                          action="${pageContext.request.contextPath}/backend/toapplist.html">
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称
                                 <span class="required">*</span>
@@ -219,7 +218,7 @@
                         </div>
 
                         <div class="item form-group">
-                            <label for="status" class="control-label col-md-3">App状态</label>
+                            <label for="status" class="control-label col-md-3 col-sm-3 col-xs-12">App状态</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select type="" id="status" name="status"
                                         class="form-control col-md-7 col-xs-12"></select>
@@ -227,7 +226,7 @@
                         </div>
 
                         <div class="item form-group">
-                            <label for="flatformId" class="control-label col-md-3">所属平台</label>
+                            <label for="flatformId" class="control-label col-md-3 col-sm-3 col-xs-12">所属平台</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select type="" id="flatformId" name="flatformId"
                                         class="form-control col-md-7 col-xs-12"></select>
@@ -279,16 +278,6 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
-                            <div class="x_title">
-                                <a class="btn btn-info " href="${pageContext.request.contextPath}/dev/toaddapp.html">新增App基础信息</a>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
                             <div class="x_content">
                                 <p class="text-muted font-12 m-b-30"/>
                                 <table id="datatable" class="table table-striped table-bordered">
@@ -305,90 +294,28 @@
                                         <th class="col-md-2">操作</th>
                                     </tr>
                                     </thead>
-
-
                                     <tbody>
                                     <c:forEach var="app" items="${applist}">
-                                        <tr>
-                                            <td>${app.softwareName}</td>
-                                            <td>${app.APKName}</td>
-                                            <td>${app.softwareSize}</td>
-                                            <td>${app.flatformName}</td>
-                                            <td>${app.categoryName1}-->${app.categoryName2}-->${app.categoryName3}</td>
-                                            <c:choose>
-                                                <c:when test="${app.status == 4}">
-                                                    <td
-                                                            style="background-color: #00cc33;color: whitesmoke;">${app.statusName}</td>
-                                                </c:when>
-                                                <c:when test="${app.status == 5}">
-                                                    <td
-                                                            style="background-color: #cc0033;color: white;">${app.statusName}</td>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <td>${app.statusName}</td>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <td>${app.downloads}</td>
-                                            <td> ${app.versionNo}</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-danger">点击操作</button>
-                                                    <button type="button" class="btn btn-danger dropdown-toggle"
-                                                            data-toggle="dropdown" aria-expanded="false">
-                                                        <span class="caret"></span>
-                                                        <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <c:if test="${app.status==4}">
-                                                            <li>
-                                                                <a class="saleSwichClose" saleswitch="close"
-                                                                   appinfoid="${app.id}" status="${app.status}"
-                                                                   appsoftwarename="${app.softwareName}" powder=""
-                                                                   toy=""
-                                                                   data-toggle="tooltip" data-placement="top" title=""
-                                                                   data-original-title="您可以点击下架来停止发布您的APP，市场将不提供APP的下载">下架</a>
-                                                            </li>
-                                                        </c:if>
-                                                        <c:if test="${app.status != 4}">
-                                                            <li>
-                                                                <a class="saleSwichClose" saleswitch="close"
-                                                                   appinfoid="${app.id}" status="${app.status}"
-                                                                   appsoftwarename="${app.softwareName}" powder=""
-                                                                   toy=""
-                                                                   data-toggle="tooltip" data-placement="top" title=""
-                                                                   data-original-title="您可以点击下架来停止发布您的APP，市场将不提供APP的下载">上架</a>
-                                                            </li>
-                                                        </c:if>
+                                        <c:if test="${app.status ==1}">
 
-                                                        <li><a class="addVersion" appinfoid="${app.id}"
-                                                               data-toggle="tooltip"
-                                                               data-placement="top" title=""
-                                                               data-original-title="新增APP版本信息">新增版本</a>
-                                                        </li>
-                                                        <li><a class="modifyVersion" appinfoid="${app.id}"
-                                                               versionid="${app.versionId}"
-                                                               status="4" statusname="已上架" data-toggle="tooltip"
-                                                               data-placement="top" title=""
-                                                               href="${pageContext.request.contextPath}/dev/toversionupdate.html?appId=${app.id}"
-                                                               data-original-title="修改APP最新版本信息">修改版本</a>
-                                                        </li>
-                                                        <li><a class="modifyAppInfo" appinfoid="${app.id}" status="4"
-                                                               statusname="已上架" data-toggle="tooltip"
-                                                               data-placement="top" title=""
-                                                               href="${pageContext.request.contextPath}/dev/toupdate.html?id=${app.id}"
-                                                               data-original-title="修改APP基础信息">修改</a></li>
-                                                        <li><a class="viewApp" appinfoid="${app.id}"
-                                                               data-toggle="tooltip"
-                                                               data-placement="top" title=""
-                                                               data-original-title="查看APP基础信息以及全部版本信息">查看</a></li>
-                                                        <li><a class="deleteApp" appinfoid="${app.id}"
-                                                               appsoftwarename="${app.softwareName}" powder="" toy=""
-                                                               data-toggle="tooltip" data-placement="top" title=""
-                                                               data-original-title="删除APP基础信息以及全部版本信息">删除</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>${app.softwareName}</td>
+                                                <td>${app.APKName}</td>
+                                                <td>${app.softwareSize}</td>
+                                                <td>${app.flatformName}</td>
+                                                <td>${app.categoryName1}-->${app.categoryName2}-->${app.categoryName3}</td>
+                                                <td>${app.statusName}</td>
+                                                <td>${app.downloads}</td>
+                                                <td> ${app.versionNo}</td>
+                                                <td>
+                                                    <a class="aduit btn btn-default" saleswitch="close"
+                                                       appinfoid="${app.id}" status="${app.status}"
+                                                       appsoftwarename="${app.softwareName}"
+                                                       data-toggle="tooltip" data-placement="top" title=""
+                                                       data-original-title="对软件进行审核">审核</a>
+                                                </td>
+                                            </tr>
+                                        </c:if>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -396,127 +323,7 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="clearfix hidden"></div>
-                <%--显示view--%>
-                <div class="row appView ">
-                    <div class="col-sm-12 col-md-12 col-xs-12">
-                        <div class="col-xs-3 col-md-3 col-sm-3">
-                            <a class="btn btn-default viewhiddenbtn">隐藏</a>
-                        </div>
-                        <table class="table table-condensed">
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">软件名称</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="softwareNameView"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">APKName</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="APKName"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">支持ROM</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="supportROM"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">支持语言</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="interfaceLanguage"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">软件大小</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="softwareSize"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">软件信息</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="appInfoView"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-sm-6 col-md-6 col-xs-6">下载量</td>
-                                <td class="col-sm-6 col-md-6 col-xs-6" id="downloads"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <%--显示新增版本号--%>
-                <div class="versionForm">
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>新增版本信息</h3>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="x_panel">
-                                <div class="x_content">
-                                    <form class="form-horizontal form-label-left" method="post"
-                                          action="${pageContext.request.contextPath}/dev/addversionsave.html"
-                                          novalidate>
-                                        <input type="hidden" id="appId" name="appId" value="">
-                                        <input type="hidden" name="createBy" value="${User.id}">
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionNo">版本号
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="versionNo" class="form-control col-md-7 col-xs-12"
-                                                       name="versionNo" required="required"
-                                                       type="text">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionSize">版本大小
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="versionSize" name="versionSize" required="required"
-                                                       class="form-control col-md-7 col-xs-12">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                                   for="publishStatus">发布状态 <span
-                                                    class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="hidden" name="publishStatus" value="3"/>
-                                                <p id="publishStatus" class="form-control col-md-7 col-xs-12"> 预发布</p>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionInfo">版本介绍
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea id="versionInfo" required="required" name="versionInfo"
-                                                      class="form-control col-md-7 col-xs-12"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkLocPath">apk文件
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="file" id="apkLocPath" required="required"
-                                                       name="apkLocPath"
-                                                       class="form-control col-md-7 col-xs-12"/>
-                                            </div>
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-3">
-                                                <button id="send" type="submit" class="btn btn-success">保存</button>
-                                                <a class="btn btn-primary"
-                                                   href="${pageContext.request.contextPath}/dev/toapplist.html">返回</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
         <!-- /page content -->
@@ -642,17 +449,6 @@
         TableManageButtons.init();
     });
 
-    /*ajax实现分类的选择显示*/
-
-    $(function () {
-        $(".appView").hide();
-        $(".versionForm").hide();
-        if (${not empty message}){
-            alert("${message}");
-        }
-    })
-
-
     /*联动显示等级分类*/
     $(function () {
         $.ajax({
@@ -728,101 +524,10 @@
         });
     })
 
-
-    $(".deleteApp").click(function () {
-        let b = confirm("确定要删除吗？");
-        if (b) {
-            let id = $(this).attr('appinfoid');
-            let obj = $(this);
-            $.ajax({
-                url: "${pageContext.request.contextPath}/dev/deleteapp?id=" + id,
-                type: "post",
-                dataType: "json",
-                success: function (data) {
-                    alert("删除成功");
-                    obj.parents("tr").remove();
-                },
-                errors: function (data) {
-                    if (data == null) {
-                        alert("删除失败");
-                    }
-                }
-            })
-        }
-    })
-
-    /*上下架操作*/
-    $(".saleSwichClose").click(function () {
-        let softwareName = $(this).attr("appsoftwarename");
-        let actionName = $(this).html();
-        let status = $(this).attr("status");
-        if (status != 2 || status != 5) {
-            alert("审核未通过 不可上架");
-            return;
-        }
-
-        let b = confirm("确定要" + actionName + softwareName + "？");
+    /*审核*/
+    $(".aduit").click(function () {
         let id = $(this).attr("appinfoid");
-        let obj = $(this);
-        if (b) {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/dev/changestatus",
-                data: {id: id, status: status},
-                type: "post",
-                dataType: "json",
-                success: function (data) {
-                    if (data) {
-                        alert(actionName + "成功");
-                        if (obj.parents("td").siblings("#statusName").html() == "已上架") {
-                            obj.parents("td").siblings("#statusName").html("已下架");
-                            obj.parents("td").siblings("#statusName").html("已下架").css("background", "#cc0033");
-                            obj.html("上架");
-                            return;
-                        } else {
-                            obj.parents("td").siblings("#statusName").html("已上架");
-                            obj.parents("td").siblings("#statusName").html("已上架").css("background", "#00cc33");
-                            obj.html("下架");
-                            return;
-                        }
-                    }
-                },
-                errors: function (data) {
-                    alert(data);
-                }
-            })
-        }
-    });
-
-    /*查看APP基本信息*/
-    $(".viewApp").click(function () {
-        let id = $(this).attr("appinfoid");
-        $(".appView").show();
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/viewapp?id=" + id,
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                $("#softwareNameView").html(data.softwareName);
-                $("#softwareSize").html(data.softwareSize);
-                $("#APKName").html(data.aPKName);
-                $("#supportROM").html(data.supportROM);
-                $("#interfaceLanguage").html(data.interfaceLanguage);
-                $("#appInfoView").html(data.appInfo);
-                $("#downloads").html(data.downloads);
-            }
-        })
-    })
-
-    /*隐藏视图*/
-    $(".viewhiddenbtn").click(function () {
-        $(".appView").hide();
-    })
-
-    /*新增版本信息*/
-    $(".addVersion").click(function () {
-        $(".versionForm").show();
-        let appId = $(this).attr("appinfoid");
-        $("#appId").val(appId);
+        window.location.replace("${pageContext.request.contextPath}/backend/toaudit.html?id=" + id);
     })
 
 </script>

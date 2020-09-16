@@ -70,6 +70,21 @@
         </set>
         where id = #{id}
     </update>
+    <update id="changeStatusAudit">
+        update app_info
+        set status = #{status}
+        where id = #{id}
+    </update>
+    <update id="updateAppVersion">
+        update app_version
+        set versionNo   = #{versionNo},
+            versionSize = #{versionSize},
+            versionInfo=#{versionInfo},
+            modifyBy    = #{modifyBy},
+            modifyDate  = #{modifyDate}
+        where id = #{id}
+
+    </update>
 
     <delete id="deleteApp">
         delete
@@ -159,9 +174,36 @@
     </select>
 
     <select id="getAppInfo" resultType="com.appinfo.pojo.AppInfo">
-        select *
-        from app_info
-        where id = #{id}
+
+        SELECT c1c.categoryName categoryName1,
+               c1.*
+        FROM (
+                 SELECT c2c.categoryName categoryName2,
+                        c2.*
+                 FROM (
+                          SELECT c3c.categoryName categoryName3,
+                                 c3.*
+                          FROM (
+                                   SELECT d2.valueName flatformName,
+                                          v2.*
+                                   FROM (
+                                            SELECT d.valueName statusName,
+                                                   v1.*
+                                            FROM (SELECT v.versionNo, i.*
+                                                  FROM (select * from app_info where id = #{id}) i
+                                                           LEFT JOIN app_version v ON i.versionId = v.id) v1
+                                                     LEFT JOIN data_dictionary d ON v1.STATUS = d.valueId
+                                                AND d.typeCode = 'APP_STATUS'
+                                        ) v2
+                                            LEFT JOIN data_dictionary d2 ON v2.flatformId = d2.valueId
+                                       AND d2.typeCode = 'APP_FLATFORM'
+                               ) c3
+                                   LEFT JOIN app_category c3c ON c3.categoryLevel3 = c3c.id
+                      ) c2
+                          LEFT JOIN app_category c2c ON c2.categoryLevel2 = c2c.id
+             ) c1
+                 LEFT JOIN app_category c1c ON c1.categoryLevel1 = c1c.id
+
     </select>
     <select id="getCategoryLevel1" resultType="com.appinfo.pojo.AppCategory">
         select *
@@ -188,6 +230,33 @@
         from app_version
         where appId = #{appId}
         order by creationDate desc
+        limit 1
+    </select>
+    <select id="getAppVersionList" resultType="com.appinfo.pojo.AppVersion">
+        SELECT v1.*,
+               d.valueName publishStatusName
+        FROM (
+                 SELECT v.*,
+                        i.softwareName
+                 FROM (SELECT * FROM app_version WHERE appId = #{appId}) v
+                          JOIN app_info i ON v.appId = i.id
+             ) v1
+                 JOIN data_dictionary d ON v1.publishStatus = d.valueid
+            AND d.typeCode = 'PUBLISH_STATUS'
+        ORDER BY creationDate DESC
+    </select>
+    <select id="getAppVersionByAppId" resultType="com.appinfo.pojo.AppVersion">
+        SELECT v1.*,
+               d.valueName publishStatusName
+        FROM (
+                 SELECT v.*,
+                        i.softwareName
+                 FROM (SELECT * FROM app_version WHERE appId = #{appId}) v
+                          JOIN app_info i ON v.appId = i.id
+             ) v1
+                 JOIN data_dictionary d ON v1.publishStatus = d.valueid
+            AND d.typeCode = 'PUBLISH_STATUS'
+        ORDER BY creationDate DESC
         limit 1
     </select>
 

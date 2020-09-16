@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 用户管理
+ *
  * @author HiSoft
  */
 @Service("userService")
@@ -38,4 +39,28 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public boolean addBackendUser(BackendUser backendUser) {
+        if (userMapper.addBackendUser(backendUser) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteBackendUser(Integer id) {
+        if (userMapper.deleteBackendUser(id) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateBackendUser() {
+//        if (userMapper.updateBackendUser() > 0) {
+//            return true;
+//        }
+//
+        return false;
+    }
 }

@@ -122,10 +122,40 @@ public class AppServiceImpl implements AppService {
 
 
     @Override
-    public boolean addAppInfoVersionId(Integer versionId,Integer id) {
-       if (appMapper.addAppInfoVersionId(versionId,id)>0){
-           return true;
-       }
+    public boolean addAppInfoVersionId(Integer versionId, Integer id) {
+        if (appMapper.addAppInfoVersionId(versionId, id) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean changeStatusAudit(Integer status, Integer id) {
+        if (appMapper.changeStatusAudit(status, id) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<AppVersion> getAppVersionList(Integer appId) {
+        List<AppVersion> appVersionList = appMapper.getAppVersionList(appId);
+        return appVersionList;
+    }
+
+
+    @Override
+    public AppVersion getAppVersionByAppId(Integer appId) {
+        AppVersion appVersion = appMapper.getAppVersionByAppId(appId);
+
+        return appVersion;
+    }
+
+    @Override
+    public boolean updateAppVersion(AppVersion appVersion) {
+        if (appMapper.updateAppVersion(appVersion)>0){
+            return true;
+        }
         return false;
     }
 }

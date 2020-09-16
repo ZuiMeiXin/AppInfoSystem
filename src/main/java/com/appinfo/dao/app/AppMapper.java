@@ -50,6 +50,9 @@ public interface AppMapper {
     /*修改app的上架状态*/
     int changeStatus(@Param("status") Integer status, @Param("id") Integer id);
 
+    /*修改App的状态信息 审核是否通过*/
+    int changeStatusAudit(@Param("status") Integer status,@Param("id") Integer id);
+
     /*条件查询,根据软件名称，App状态，所属平台，一级分类，二级分类，三级分类*/
     List<AppInfo> queryApplist(Map map);
 
@@ -59,5 +62,14 @@ public interface AppMapper {
     int getAppVersionIdByAppId(Integer appId);
     /*添加VerisonID*/
     int addAppInfoVersionId(@Param("versionId") Integer versionId,@Param("id") Integer id);
+
+    /*通过appId查询所有的历史版本信息*/
+    List<AppVersion> getAppVersionList(Integer appId);
+
+    /*通过appId查询最新的版本信息*/
+    AppVersion getAppVersionByAppId(Integer appId);
+
+    /*修改最新本版信息*/
+    int updateAppVersion(AppVersion appVersion);
 
 }

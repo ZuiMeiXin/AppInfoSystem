@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -47,7 +46,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>${User.devName}</h2>
+                        <h2>${User.userName}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -57,13 +56,11 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>${devUser.devName}</h3>
+                        <h3>${User.userName}</h3>
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-home"></i> App账户管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-edit"></i> App应用管理 <span class="fa fa-chevron-down"></span></a>
@@ -79,15 +76,6 @@
 
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
                     <a data-toggle="tooltip" data-placement="top" title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
@@ -204,7 +192,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>APP开发者平台</h3>
+                        <h3>后台管理者平台</h3>
                     </div>
 
                     <div class="title_right">
@@ -224,7 +212,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>AppInfo 修改 <small>sub title</small></h2>
+                                <h2>App 审核 <small>sub title</small></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -246,21 +234,20 @@
                             <div class="x_content">
 
                                 <form class="form-horizontal form-label-left" method="post"
-                                      action="${pageContext.request.contextPath}/dev/appupdatesave.html">
-                                    <span class="section">App Info</span>
-
-                                    <input type="hidden" name="creationDate" value="${AppInfo.creationDate}"/>
-                                    <input type="hidden" name="createdBy" value="${AppInfo.createdBy}"/>
-                                    <input type="hidden" name="id" value="${AppInfo.id}"/>
+                                      action="${pageContext.request.contextPath}/backend/auditsave.html">
+                                    <span class="section">App基础信息</span>
+                                    <input type="hidden" class="status" name="status" value="">
+                                    <input type="hidden" name="id" value="${appInfo.id}"/>
+                                    <input type="hidden" class="versionNo" name="versionNo"
+                                           value="${appInfo.versionNo}">
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="softwareName" class="form-control col-md-7 col-xs-12"
-                                                   name="softwareName" value="${AppInfo.softwareName}"
-                                                   required="required"
-                                                   type="text"/>
+                                            <p id="softwareName" class="form-control col-md-7 col-xs-12"
+                                               name="softwareName"
+                                            >${appInfo.softwareName}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -268,9 +255,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="APKName" name="APKName" required="required"
-                                                   value="${AppInfo.APKName}"
-                                                   class="form-control col-md-7 col-xs-12">
+                                            <p id="APKName" name="APKName"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.APKName}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -278,9 +264,8 @@
                                                 class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="ROM" name="supportROM" required="required"
-                                                   value="${AppInfo.supportROM}"
-                                                   class="form-control col-md-7 col-xs-12">
+                                            <p id="ROM" name="supportROM"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.supportROM}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -288,9 +273,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="language" name="interfaceLanguage" required="required"
-                                                   value="${AppInfo.interfaceLanguage}"
-                                                   class="form-control col-md-7 col-xs-12">
+                                            <p id="language" name="interfaceLanguage"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.interfaceLanguage}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -298,9 +282,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="softwareSize" name="softwareSize" required="required"
-                                                   value="${AppInfo.softwareSize}"
-                                                   class="form-control col-md-7 col-xs-12">
+                                            <p id="softwareSize" name="softwareSize"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.softwareSize}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -308,26 +291,26 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="downloads" type="text" name="downloads"
-                                                   value="${AppInfo.downloads}"
-                                                   class="optional form-control col-md-7 col-xs-12">
+                                            <p id="downloads" type="text" name="downloads"
+                                               class="optional form-control col-md-7 col-xs-12">${appInfo.downloads}</p>
+
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label for="flatformId"
                                                class="control-label col-md-3 col-sm-3 col-xs-12">所属平台</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select type="" id="flatformId" name="flatformId"
-                                                    class="form-control col-md-7 col-xs-12"
-                                                    required="required"></select>
+                                            <p type="" id="flatformId" name="flatformId"
+                                               class="form-control col-md-7 col-xs-12"
+                                               required="required">${appInfo.flatformName}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label for="categoryLevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="categoryLevel1" name="categoryLevel1"
-                                                    class="form-control col-md-7 col-xs-12"
-                                                    required="required"></select>
+                                            <p id="categoryLevel1" name="categoryLevel1"
+                                               class="form-control col-md-7 col-xs-12"
+                                               required="required">${appInfo.categoryName1}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -335,9 +318,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select type="tel" id="categoryLevel2" name="categoryLevel2"
-                                                    required="required"
-                                                    class="form-control col-md-7 col-xs-12"></select>
+                                            <p type="tel" id="categoryLevel2" name="categoryLevel2"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.categoryName2}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -345,8 +327,8 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="categoryLevel3" required="required" name="categoryLevel3"
-                                                    class="form-control col-md-7 col-xs-12"></select>
+                                            <p id="categoryLevel3" name="categoryLevel3"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.categoryName3}</p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -354,9 +336,9 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="status" required="required" name="status"
-                                                    class="form-control col-md-7 col-xs-12">
-                                            </select>
+                                            <p id="status"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.statusName}
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -364,8 +346,9 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea id="appinfo" required="required" name="appinfo" data-value="${AppInfo.appInfo}"
-                                                      class="form-control col-md-7 col-xs-12">${AppInfo.appInfo}</textarea>
+                                            <textarea id="appinfo" name="appinfo"
+                                                      data-value="${appInfo.appInfo}"
+                                                      class="form-control col-md-7 col-xs-12">${appInfo.appInfo}</textarea>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -373,19 +356,76 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" id="logoPicPath" required="required" name="logoPicPath"
-                                                   value="${AppInfo.logoPicPath}"
-                                                   class="form-control col-md-7 col-xs-12"/>
+                                            <p type="file" id="logoPicPath" required="required" name="logoPicPath"
+                                               value="${appInfo.logoPicPath}"
+                                               class="form-control col-md-7 col-xs-12">${appInfo.logoPicPath}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <button type="submit" class="btn btn-success yes">审核通过</button>
+                                            <button type="submit" class="btn btn-success no">审核不通过</button>
+                                            <a class="btn btn-primary"
+                                               href="${pageContext.request.contextPath}/backend/toapplist.html">返回</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="ln_solid"></div>
+                            <div class="x_content">
+                                <form class="form-horizontal form-label-left" method="post"
+                                      action="${pageContext.request.contextPath}/dev/appversionupdatesave.html">
+                                    <span class="section">最新版本信息</span>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionNo">版本号
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <p id="versionNo"
+                                               class="form-control col-md-7 col-xs-12">${appVersion.versionNo}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionSize">版本大小
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <p id="versionSize"
+                                               class="form-control col-md-7 col-xs-12">${appVersion.versionSize}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="publishStatus">发布状态
+                                            <span
+                                                    class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <p id="publishStatus"
+                                               class="form-control col-md-7 col-xs-12">${appVersion.publishStatusName}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionInfo">版本介绍
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <p id="versionInfo"
+                                               class="form-control col-md-7 col-xs-12">${appVersion.versionInfo}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkLocPath">apk文件
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <p id="apkLocPath" name="apkLocPath"
+                                               class="form-control col-md-7 col-xs-12">${appVersion.apkLocPath}</p>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <button type="submit" class="btn btn-success">保存</button>
-                                            <a class="btn btn-primary"
-                                               href="${pageContext.request.contextPath}/dev/toapplist.html">返回</a>
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -450,82 +490,17 @@
         return false;
     });
 
-
-    /*ajax实现分类的选择显示*/
-    $(function () {
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/getCategory",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                var categoryLevel1optionsoptions = "<option value=\"0\" >请选择</option>";
-                for (let i = 0; i < data.length; i++) {
-                    categoryLevel1optionsoptions += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
-                }
-                $("#categoryLevel1").html(categoryLevel1optionsoptions);
-            }
-        });
-
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/getStatus",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                let options = "<option value=\"0\">请选择</option>";
-                for (let i = 0; i < data.length; i++) {
-                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
-                }
-                $("#status").html(options);
-            }
-        });
-
-
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/getFlatForm",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                let options = "<option value=\"0\">请选择</option>";
-                for (let i = 0; i < data.length; i++) {
-                    options += "<option value=\"" + data[i].valueId + "\">" + data[i].valueName + "</option>";
-                }
-                $("#flatformId").html(options);
-            }
-        });
-
-
+    $(".yes").click(function () {
+        if ($(".versionNo").val() == "") {
+            alert("不是最新版本号 审核不通过");
+            window.location.replace("${pageContext.request.contextPath}/backend/toapplist.html");
+            return false;
+        }
+        $(".status").val(2);
     })
-    $("#categoryLevel1").blur(function () {
-        let lid = $("#categoryLevel1").val();
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                let options = "<option value=\"0\">请选择</option>";
-                for (let i = 0; i < data.length; i++) {
-                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
-                }
-                $("#categoryLevel2").html(options);
-            }
-        });
+    $(".no").click(function () {
+        $(".status").val(3);
     })
-    $("#categoryLevel2").blur(function () {
-        let lid = $("#categoryLevel2").val();
-        $.ajax({
-            url: "${pageContext.request.contextPath}/dev/getCategoryLevel2?id=" + lid,
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                let options = "<option value=\"0\">请选择</option>";
-                for (let i = 0; i < data.length; i++) {
-                    options += "<option value=\"" + data[i].id + " \">" + data[i].categoryName + "</option>";
-                }
-                $("#categoryLevel3").html(options);
-            }
-        });
-    })
-
 
 </script>
 <!-- /validator -->

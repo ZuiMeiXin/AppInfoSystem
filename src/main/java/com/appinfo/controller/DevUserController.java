@@ -171,4 +171,26 @@ public class DevUserController {
         return "redirect:/dev/toapplist.html";
     }
 
+    /*跳转到版本信息修改页面*/
+    @RequestMapping("/toversionupdate.html")
+    public String toVersionInfoUpdate(Integer appId, Model model) {
+        List<AppVersion> appVersionList = appService.getAppVersionList(appId);
+        AppVersion appVersion = appService.getAppVersionByAppId(appId);
+        model.addAttribute("versionList", appVersionList);
+        model.addAttribute("appVersion", appVersion);
+        return "appversionupdate";
+    }
+
+    @RequestMapping("/appversionupdatesave.html")
+    public String appVersionUpdateSave(AppVersion appVersion,Model model) {
+        appVersion.setModifyDate(new Date());
+        boolean b = appService.updateAppVersion(appVersion);
+        if (b){
+            model.addAttribute("message","版本修改成功");
+            return "applist";
+        }
+        model.addAttribute("error", "版本修改失败");
+        return "redirect:/dev/toapplist.html";
+    }
+
 }
